@@ -17,6 +17,11 @@ genschema:
 dbbackup:
 	pg_dump --format p --if-exists --clean --no-tablespaces --no-privileges --no-owner --port 5432 --host 127.0.0.1 --username vointini vointini --file backup.sql
 
+updatelocales:
+	@echo "Updating locales.."
+	cd backend/serviceapi; gotext extract .
+	go run ./cmd/build
+
 buildjs:
 	go run ./cmd/build
 	cd frontend/templates && npm run build
