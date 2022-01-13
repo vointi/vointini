@@ -1,0 +1,5 @@
+cmd/server/*.json
+.idea/dataSources.xml
+frontend/templates/public/build/**
+release/*.*.*/*
+bin/*
