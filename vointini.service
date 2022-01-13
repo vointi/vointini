@@ -1,0 +1,11 @@
+# systemctl --user enable $(pwd)/vointini.service
+
+# https://www.freedesktop.org/software/systemd/man/systemd.unit.html#%5BUnit%5D%20Section%20Options
+[Unit]
+Description=Vointini service
+
+# https://www.freedesktop.org/software/systemd/man/systemd.service.html#Options
+[Service]
+Type=oneshot
+WorkingDirectory=/home/vointini
+ExecStart=/usr/bin/vointini-server -config config.json

@@ -1,0 +1,11 @@
+{
+  "backend": {
+    "postgres": {
+      "user": "vointini",
+      "pass": "<REMEMBER TO CHANGE>",
+      "db": "vointini",
+      "host": "127.0.0.1",
+      "port": 5432
+    }
+  }
+}

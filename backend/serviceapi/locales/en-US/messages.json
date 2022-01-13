@@ -1,0 +1,12 @@
+{
+    "language": "en-US",
+    "messages": [
+        {
+            "id": "ve_empty",
+            "message": "ve_empty",
+            "translation": "empty",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        }
+    ]
+}
