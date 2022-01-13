@@ -22,6 +22,8 @@ func rmfromslice(l []int, r int) (nl []int) {
 // generateReoccurringTasks generates new re-occurring task(s)
 func (r Service) generateReoccurringTasks(duration time.Duration) {
 
+	r.log.Printf(`Generating re-occuring tasks every %v..`, duration)
+
 	go func(dur time.Duration) {
 		for range time.Tick(dur) {
 			rtl, err := r.storage.ReOccurringTaskList(context.TODO())

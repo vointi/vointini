@@ -85,7 +85,7 @@ func main() {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
-	svc := serviceapi.New(storage, language.Finnish)
+	svc := serviceapi.New(storage, language.Finnish, os.Stdout)
 
 	frontendServer := server.New()
 	apiServer := restapi.New(svc)
