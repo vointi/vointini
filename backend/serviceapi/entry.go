@@ -15,21 +15,21 @@ func (r Service) EntryUpdate(ctx context.Context, item serviceitems.EntryUpdate)
 	if item.Activity == `` {
 		userError = append(userError, UserError{
 			Field: `activity`,
-			Msg:   `activity cannot be empty`,
+			Msg:   r.tr.Sprintf(`str.empty`),
 		})
 	}
 
 	if item.DateTime.Location() != time.UTC {
 		userError = append(userError, UserError{
 			Field: `datetime`,
-			Msg:   `datetime is using non-UTC time zone`,
+			Msg:   r.tr.Sprintf(`datetime.non-UTC`),
 		})
 	}
 
 	if len(item.Tags) == 0 {
 		userError = append(userError, UserError{
 			Field: `tags`,
-			Msg:   `must have at least one tag`,
+			Msg:   r.tr.Sprintf(`tags.required`),
 		})
 	}
 

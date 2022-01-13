@@ -1,12 +1,23 @@
 {
-    "language": "en-US",
-    "messages": [
-        {
-            "id": "ve_empty",
-            "message": "ve_empty",
-            "translation": "empty",
-            "translatorComment": "Copied from source.",
-            "fuzzy": true
-        }
-    ]
+	"language": "en-US",
+	"messages": [
+		{
+			"id": "tags.required",
+			"message": "tags.required",
+			"translation": "at least one tag is required",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "str.empty",
+			"message": "str.empty",
+			"translation": "field cannot be empty",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "datetime.non-UTC",
+			"message": "datetime.non-UTC",
+			"translation": "datetime.non-UTC",
+			"translatorComment": "Copied from source."
+		}
+	]
 }

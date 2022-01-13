@@ -57,4 +57,6 @@ func main() {
 		_, _ = fmt.Fprint(os.Stderr, `error: %v`, err)
 		os.Exit(1)
 	}
+
+	updateTranslationsInDir(path.Join(`backend`, `serviceapi`, `locales`))
 }

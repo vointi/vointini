@@ -2,9 +2,23 @@
     "language": "en-US",
     "messages": [
         {
-            "id": "ve_empty",
-            "message": "ve_empty",
-            "translation": "ve_empty",
+            "id": "str.empty",
+            "message": "str.empty",
+            "translation": "str.empty",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "datetime.non-UTC",
+            "message": "datetime.non-UTC",
+            "translation": "datetime.non-UTC",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "tags.required",
+            "message": "tags.required",
+            "translation": "tags.required",
             "translatorComment": "Copied from source.",
             "fuzzy": true
         }

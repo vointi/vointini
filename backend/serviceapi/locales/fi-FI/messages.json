@@ -1,10 +1,23 @@
 {
-    "language": "fi-FI",
-    "messages": [
-        {
-            "id": "ve_empty",
-            "message": "ve_empty",
-            "translation": "tyhjae"
-        }
-    ]
+	"language": "fi-FI",
+	"messages": [
+		{
+			"id": "str.empty",
+			"message": "str.empty",
+			"translation": "tyhjä kenttä",
+			"translatorComment": ""
+		},
+		{
+			"id": "datetime.non-UTC",
+			"message": "datetime.non-UTC",
+			"translation": "päivämäärä ei ole UTC-muodossa",
+			"translatorComment": ""
+		},
+		{
+			"id": "tags.required",
+			"message": "tags.required",
+			"translation": "yksi tagi vaaditaan",
+			"translatorComment": ""
+		}
+	]
 }
