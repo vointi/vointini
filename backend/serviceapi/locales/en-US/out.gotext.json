@@ -21,6 +21,34 @@
             "translation": "tags.required",
             "translatorComment": "Copied from source.",
             "fuzzy": true
+        },
+        {
+            "id": "err.asciionly",
+            "message": "err.asciionly",
+            "translation": "err.asciionly",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "depression",
+            "message": "depression",
+            "translation": "depression",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "anxiety",
+            "message": "anxiety",
+            "translation": "anxiety",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "stress",
+            "message": "stress",
+            "translation": "stress",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
         }
     ]
 }

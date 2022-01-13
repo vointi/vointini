@@ -73,21 +73,21 @@ func (r Service) EntryLevelUpdate(ctx context.Context, update serviceitems.Entry
 	if update.Name == `` {
 		userError = append(userError, UserError{
 			Field: "name",
-			Msg:   "name cannot be empty",
+			Msg:   r.tr.Sprintf(`str.empty`),
 		})
 	}
 
 	if update.ShortName == `` {
 		userError = append(userError, UserError{
 			Field: "shortname",
-			Msg:   "shortname cannot be empty",
+			Msg:   r.tr.Sprintf(`str.empty`),
 		})
 	}
 
 	if !asciiLettersOnly(update.ShortName) {
 		userError = append(userError, UserError{
 			Field: "shortname",
-			Msg:   "shortname must be only ASCII letters",
+			Msg:   r.tr.Sprintf(`err.asciionly`),
 		})
 	}
 

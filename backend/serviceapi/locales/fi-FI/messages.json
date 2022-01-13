@@ -4,7 +4,7 @@
 		{
 			"id": "str.empty",
 			"message": "str.empty",
-			"translation": "tyhjä kenttä",
+			"translation": "kenttä ei voi olla tyhjä",
 			"translatorComment": ""
 		},
 		{
@@ -18,6 +18,30 @@
 			"message": "tags.required",
 			"translation": "yksi tagi vaaditaan",
 			"translatorComment": ""
+		},
+		{
+			"id": "err.asciionly",
+			"message": "err.asciionly",
+			"translation": "vain ASCII-merkkejä",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "depression",
+			"message": "depression",
+			"translation": "depression",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "anxiety",
+			"message": "anxiety",
+			"translation": "anxiety",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "stress",
+			"message": "stress",
+			"translation": "stress",
+			"translatorComment": "Copied from source."
 		}
 	]
 }

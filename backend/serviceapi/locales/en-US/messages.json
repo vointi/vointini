@@ -2,21 +2,45 @@
 	"language": "en-US",
 	"messages": [
 		{
-			"id": "tags.required",
-			"message": "tags.required",
-			"translation": "at least one tag is required",
-			"translatorComment": "Copied from source."
-		},
-		{
 			"id": "str.empty",
 			"message": "str.empty",
 			"translation": "field cannot be empty",
-			"translatorComment": "Copied from source."
+			"translatorComment": ""
 		},
 		{
 			"id": "datetime.non-UTC",
 			"message": "datetime.non-UTC",
 			"translation": "datetime.non-UTC",
+			"translatorComment": ""
+		},
+		{
+			"id": "tags.required",
+			"message": "tags.required",
+			"translation": "at least one tag is required",
+			"translatorComment": ""
+		},
+		{
+			"id": "err.asciionly",
+			"message": "err.asciionly",
+			"translation": "ASCII only",
+			"translatorComment": ""
+		},
+		{
+			"id": "depression",
+			"message": "depression",
+			"translation": "depression",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "anxiety",
+			"message": "anxiety",
+			"translation": "anxiety",
+			"translatorComment": "Copied from source."
+		},
+		{
+			"id": "stress",
+			"message": "stress",
+			"translation": "stress",
 			"translatorComment": "Copied from source."
 		}
 	]
