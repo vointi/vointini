@@ -1,4 +1,4 @@
-module github.com/vointi/vointini
+module github.com/vointini/vointini
 
 go 1.17
 

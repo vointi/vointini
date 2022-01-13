@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/tkrajina/typescriptify-golang-structs/typescriptify"
-	"github.com/vointi/vointini/backend/restapi"
+	"github.com/vointini/vointini/backend/restapi"
 	"os"
 	"path"
 )

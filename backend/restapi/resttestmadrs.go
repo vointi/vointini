@@ -3,7 +3,7 @@ package restapi
 import (
 	"context"
 	"encoding/json"
-	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 	"net/http"
 )
 

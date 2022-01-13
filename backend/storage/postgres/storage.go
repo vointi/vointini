@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/vointi/vointini/backend/storage/storageimpl"
+	"github.com/vointini/vointini/backend/storage/storageimpl"
 	"log"
 	"time"
 )

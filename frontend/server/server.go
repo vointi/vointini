@@ -4,7 +4,7 @@ import (
 	"embed"
 	"errors"
 	"github.com/go-chi/chi/v5"
-	"github.com/vointi/vointini/frontend/templates"
+	"github.com/vointini/vointini/frontend/templates"
 	"html/template"
 	"io"
 	"net/http"

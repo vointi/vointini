@@ -2,7 +2,7 @@ package serviceapi
 
 import (
 	"context"
-	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 	"strings"
 )
 

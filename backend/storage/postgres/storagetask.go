@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/georgysavva/scany/pgxscan"
-	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 )
 
 func (s StoragePostgreSQL) taskAdd(ctx context.Context, task serviceitems.TaskUpdate) (retid int, internalError error) {

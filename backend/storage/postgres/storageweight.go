@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/georgysavva/scany/pgxscan"
-	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 )
 
 func (s StoragePostgreSQL) WeightUpdate(ctx context.Context, add serviceitems.WeightAdd) (internalError error) {
