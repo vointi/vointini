@@ -26,6 +26,14 @@ func (r Service) EntryUpdate(ctx context.Context, item serviceitems.EntryUpdate)
 		})
 	}
 
+	if item.DateTime.After(time.Now().Add(time.Hour * 2)) {
+		// Entries in too far in the future cannot be added/updated
+		userError = append(userError, UserError{
+			Field: `datetime`,
+			Msg:   r.tr.Sprintf(`time.in_future`),
+		})
+	}
+
 	if len(item.Tags) == 0 {
 		userError = append(userError, UserError{
 			Field: `tags`,
