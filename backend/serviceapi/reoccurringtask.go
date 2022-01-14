@@ -80,7 +80,7 @@ func (r Service) generateReoccurringTasks(duration time.Duration) {
 						})
 
 					if err != nil {
-						log.Println(err)
+						r.log.Println(err)
 						continue
 					}
 
