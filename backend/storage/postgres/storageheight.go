@@ -48,11 +48,7 @@ ORDER BY
 	}
 
 	for _, i := range sitems {
-		items = append(items, &serviceitems.Height{
-			Id:      i.Id,
-			AddedAt: i.AddedAt,
-			Height:  i.Height,
-		})
+		items = append(items, i.ConvertToAPI())
 	}
 
 	sitems = nil // Free memory

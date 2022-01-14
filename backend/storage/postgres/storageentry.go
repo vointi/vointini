@@ -95,13 +95,7 @@ ORDER BY
 	}
 
 	for _, i := range sitems {
-		e := &serviceitems.Entry{
-			Id:               i.Id,
-			DateTime:         i.DateTime,
-			ActivityName:     i.ActivityName,
-			LevelAchievement: i.Achievement,
-			Description:      i.Description,
-		}
+		e := i.ConvertToAPI()
 
 		e.Levels, internalError = s.getLevelsOfEntry(ctx, i.Id)
 		if internalError != nil {
@@ -243,15 +237,7 @@ ORDER BY
 	}
 
 	for _, i := range sitems {
-		entries = append(entries, &serviceitems.EntryLevel{
-			Id:            i.Id,
-			Name:          i.Name,
-			ShowByDefault: i.ShowByDefault,
-			Worst:         i.DescriptionWorst,
-			ShortName:     i.ShortName,
-			Previous:      i.FetchPrevious,
-			AddedAt:       i.AddedAt,
-		})
+		entries = append(entries, i.ConvertToAPI())
 	}
 
 	sitems = nil // Free memory

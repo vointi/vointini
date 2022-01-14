@@ -60,7 +60,9 @@ func (s StoragePostgreSQL) ReOccurringTaskList(ctx context.Context) (tasks []*se
 
 	internalError = pgxscan.Select(ctx, s.db, &sitems,
 		`SELECT 
-  id, title, added_at 
+  id
+  ,title
+  ,added_at 
 FROM 
   spawn_tasks
 ORDER BY 
@@ -73,11 +75,7 @@ ORDER BY
 	}
 
 	for _, i := range sitems {
-		tasks = append(tasks, &serviceitems.ReoccurringTask{
-			Id:      i.Id,
-			AddedAt: i.AddedAt,
-			Title:   i.Title,
-		})
+		tasks = append(tasks, i.ConvertToAPI())
 	}
 
 	sitems = nil // Free memory

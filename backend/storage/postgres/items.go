@@ -3,6 +3,7 @@ package postgres
 // Internal types to be converted to API versions
 
 import (
+	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 	"time"
 )
 
@@ -16,6 +17,16 @@ type entry struct {
 	ActivityName string    `db:"activity_name"`
 	Achievement  int       `db:"level_achievement"`
 	Description  string    `db:"descr"`
+}
+
+func (s entry) ConvertToAPI() *serviceitems.Entry {
+	return &serviceitems.Entry{
+		Id:               s.Id,
+		DateTime:         s.DateTime,
+		ActivityName:     s.ActivityName,
+		Description:      s.Description,
+		LevelAchievement: s.Achievement,
+	}
 }
 
 type entrysLevel struct {
@@ -33,13 +44,21 @@ type entryLevel struct {
 	AddedAt          time.Time `db:"added_at"`
 }
 
+func (s entryLevel) ConvertToAPI() *serviceitems.EntryLevel {
+	return &serviceitems.EntryLevel{
+		Id:            s.Id,
+		Name:          s.Name,
+		ShowByDefault: s.ShowByDefault,
+		ShortName:     s.ShortName,
+		Worst:         s.DescriptionWorst,
+		Previous:      s.FetchPrevious,
+		AddedAt:       s.AddedAt,
+	}
+}
+
 // Tag assigned for entry
 type entrysTags struct {
 	TagId int `db:"tagid"`
-}
-
-type entryPrevious struct {
-	Id int `db:"id"`
 }
 
 type task struct {
@@ -52,22 +71,60 @@ type task struct {
 	ReoccurringTaskReferenceId *int       `db:"refid"`
 }
 
+func (s task) ConvertToAPI() *serviceitems.Task {
+	return &serviceitems.Task{
+		Id:                         s.Id,
+		AddedAt:                    s.AddedAt,
+		CompletedAt:                s.CompletedAt,
+		Priority:                   s.Priority,
+		Title:                      s.Title,
+		Description:                s.Description,
+		ReoccurringTaskReferenceId: s.ReoccurringTaskReferenceId,
+	}
+}
+
 type reoccurringtask struct {
 	Id      int       `db:"id"`
 	AddedAt time.Time `db:"added_at"`
 	Title   string    `db:"title"`
 }
 
+func (s reoccurringtask) ConvertToAPI() *serviceitems.ReoccurringTask {
+	return &serviceitems.ReoccurringTask{
+		Id:      s.Id,
+		AddedAt: s.AddedAt,
+		Title:   s.Title,
+	}
+}
+
+// weight has person's weight
 type weight struct {
 	Id      int       `db:"id"`
 	AddedAt time.Time `db:"added_at"`
 	Weight  float32   `db:"value"`
 }
 
+func (s weight) ConvertToAPI() *serviceitems.Weight {
+	return &serviceitems.Weight{
+		Id:      s.Id,
+		AddedAt: s.AddedAt,
+		Weight:  s.Weight,
+	}
+}
+
+// height has person's height
 type height struct {
 	Id      int       `db:"id"`
 	AddedAt time.Time `db:"added_at"`
 	Height  float32   `db:"value"`
+}
+
+func (s height) ConvertToAPI() *serviceitems.Height {
+	return &serviceitems.Height{
+		Id:      s.Id,
+		AddedAt: s.AddedAt,
+		Height:  s.Height,
+	}
 }
 
 type tag struct {
@@ -75,4 +132,13 @@ type tag struct {
 	AddedAt   time.Time `db:"added_at"`
 	Name      string    `db:"name"`
 	ShortName string    `db:"shortname"`
+}
+
+func (s tag) ConvertToAPI() *serviceitems.Tag {
+	return &serviceitems.Tag{
+		Id:        s.Id,
+		AddedAt:   s.AddedAt,
+		Name:      s.Name,
+		ShortName: s.ShortName,
+	}
 }

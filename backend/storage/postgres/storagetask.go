@@ -96,15 +96,7 @@ ORDER BY
 	}
 
 	for _, i := range sitems {
-		tasks = append(tasks, &serviceitems.Task{
-			Id:                         i.Id,
-			AddedAt:                    i.AddedAt,
-			CompletedAt:                i.CompletedAt,
-			Priority:                   i.Priority,
-			Title:                      i.Title,
-			Description:                i.Description,
-			ReoccurringTaskReferenceId: i.ReoccurringTaskReferenceId,
-		})
+		tasks = append(tasks, i.ConvertToAPI())
 	}
 
 	sitems = nil // Free memory
@@ -137,15 +129,7 @@ LIMIT 1
 	}
 
 	if len(sitem) == 1 {
-		item = &serviceitems.Task{
-			Id:                         sitem[0].Id,
-			AddedAt:                    sitem[0].AddedAt,
-			Priority:                   sitem[0].Priority,
-			Title:                      sitem[0].Title,
-			Description:                sitem[0].Description,
-			CompletedAt:                sitem[0].CompletedAt,
-			ReoccurringTaskReferenceId: sitem[0].ReoccurringTaskReferenceId,
-		}
+		item = sitem[0].ConvertToAPI()
 	}
 
 	sitem = nil // Free memory

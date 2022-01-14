@@ -28,12 +28,7 @@ ORDER BY
 	}
 
 	for _, i := range sitems {
-		tags = append(tags, &serviceitems.Tag{
-			Id:        i.Id,
-			AddedAt:   i.AddedAt,
-			Name:      i.Name,
-			ShortName: i.ShortName,
-		})
+		tags = append(tags, i.ConvertToAPI())
 	}
 
 	sitems = nil // Free memory
@@ -109,12 +104,7 @@ LIMIT 1
 	}
 
 	if len(sitems) == 1 {
-		item = &serviceitems.Tag{
-			Id:        sitems[0].Id,
-			AddedAt:   sitems[0].AddedAt,
-			Name:      sitems[0].Name,
-			ShortName: sitems[0].ShortName,
-		}
+		item = sitems[0].ConvertToAPI()
 	}
 
 	sitems = nil // Free memory
