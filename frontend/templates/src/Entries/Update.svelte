@@ -107,6 +107,8 @@
             return
         }
 
+        activity = ""
+
         tagNames.forEach((val) => {
             if (selectedTags.length === 0) {
                 return
