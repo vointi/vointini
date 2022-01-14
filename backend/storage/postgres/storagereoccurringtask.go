@@ -8,7 +8,7 @@ import (
 )
 
 func (s StoragePostgreSQL) reoccurringTaskAdd(ctx context.Context, update serviceitems.ReoccurringTaskUpdate) (retid int, internalError error) {
-	internalError = pgxscan.Get(s.dbctx, s.db, &retid,
+	internalError = pgxscan.Get(ctx, s.db, &retid,
 		`INSERT INTO 
 spawn_tasks 
        (title, min_respawn_duration_after_done) VALUES
