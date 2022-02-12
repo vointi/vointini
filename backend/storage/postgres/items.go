@@ -142,3 +142,55 @@ func (s tag) ConvertToAPI() *serviceitems.Tag {
 		ShortName: s.ShortName,
 	}
 }
+
+type resolution struct {
+	Id           int        `db:"id"`
+	Name         string     `db:"name"`
+	DecisionDate *time.Time `db:"decisiondate"`
+	SentDate     *time.Time `db:"sentdate"`
+	StartDate    time.Time  `db:"startdate"`
+	EndDate      *time.Time `db:"enddate"`
+	EntityId     int        `db:"entityid"`
+	AddedAt      time.Time  `db:"added_at"`
+}
+
+func (s resolution) ConvertToAPI() *serviceitems.Resolution {
+	return &serviceitems.Resolution{
+		Id:           s.Id,
+		Name:         s.Name,
+		DecisionDate: s.DecisionDate,
+		SentDate:     s.SentDate,
+		StartDate:    s.StartDate,
+		EndDate:      s.EndDate,
+		EntityId:     s.EntityId,
+		AddedAt:      s.AddedAt,
+	}
+}
+
+type resolutionFile struct {
+	Id           int       `db:"id"`
+	ResolutionId int       `db:"resolutionid"`
+	AddedAt      time.Time `db:"added_at"`
+	Filename     string    `db:"filename"`
+}
+
+func (s resolutionFile) ConvertToAPI() *serviceitems.ResolutionFile {
+	return &serviceitems.ResolutionFile{
+		Id:           s.Id,
+		ResolutionId: s.ResolutionId,
+		AddedAt:      s.AddedAt,
+		Filename:     s.Filename,
+	}
+}
+
+type resolutionEntity struct {
+	Id   int    `db:"id"`
+	Name string `db:"name"`
+}
+
+func (s resolutionEntity) ConvertToAPI() *serviceitems.ResolutionEntity {
+	return &serviceitems.ResolutionEntity{
+		Id:   s.Id,
+		Name: s.Name,
+	}
+}

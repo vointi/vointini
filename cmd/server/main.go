@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/vointini/vointini/backend/filestorage"
 	"github.com/vointini/vointini/backend/restapi"
 	"github.com/vointini/vointini/backend/serviceapi"
 	"github.com/vointini/vointini/backend/storage/postgres"
@@ -27,6 +28,8 @@ type PostgreSQL struct {
 }
 
 type Config struct {
+	BasePath string `json:"basepath"`
+
 	Backend struct {
 		Postgres *PostgreSQL `json:"postgres"`
 	} `json:"backend"`
@@ -71,11 +74,15 @@ func main() {
 
 	if config.Backend.Postgres != nil {
 		pgcfg := *config.Backend.Postgres
-		storage = postgres.New(pgcfg.User, pgcfg.Pass, pgcfg.Database, pgcfg.Host, pgcfg.Port)
+		storage, err = postgres.New(pgcfg.User, pgcfg.Pass, pgcfg.Database, pgcfg.Host, pgcfg.Port)
+		if err != nil {
+			_, _ = fmt.Fprintf(os.Stderr, `couldn't connect to PostgreSQL database: %v `, err)
+			os.Exit(1)
+		}
 	}
 
 	if storage == nil {
-		_, _ = fmt.Fprintf(os.Stderr, `no storage loaded`)
+		_, _ = fmt.Fprintf(os.Stderr, `no storage backend loaded`)
 		os.Exit(1)
 	}
 
@@ -85,10 +92,13 @@ func main() {
 	router.Use(middleware.Logger)
 	router.Use(middleware.Recoverer)
 
-	svc := serviceapi.New(storage, language.Finnish, os.Stdout)
+	defaultLanguage := language.Finnish
+	fStorage := filestorage.New(config.BasePath, defaultLanguage)
 
-	frontendServer := server.New()
-	apiServer := restapi.New(svc)
+	svc := serviceapi.New(storage, fStorage, defaultLanguage, os.Stdout)
+
+	frontendServer := server.New(defaultLanguage)
+	apiServer := restapi.New(svc, defaultLanguage)
 
 	// Add API to router
 	router.Mount(`/api/v1`, apiServer)

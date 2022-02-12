@@ -113,3 +113,29 @@ type DTOTag struct {
 	Name      string `json:"name"`
 	ShortName string `json:"shortname"`
 }
+
+type DTOResolutionsUpdate struct {
+	EntityId     int    `json:"entityid"`
+	Name         string `json:"name"`
+	DecisionDate string `json:"decisiondate"`
+	SentDate     string `json:"sentdate"`
+	StartDate    string `json:"startdate"`
+	EndDate      string `json:"enddate"`
+}
+
+type DTOResolutions struct {
+	Id           int      `json:"id"`
+	EntityId     int      `json:"entityid"`
+	AddedAt      string   `json:"added_at"`
+	Name         string   `json:"name"`
+	DecisionDate string   `json:"decisiondate"`
+	SentDate     string   `json:"sentdate"`
+	StartDate    string   `json:"startdate"`
+	EndDate      string   `json:"enddate"`
+	Files        []string `json:"files"`
+}
+
+type DTOResolutionEntity struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}

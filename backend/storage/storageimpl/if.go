@@ -47,4 +47,17 @@ type Storage interface {
 
 	// TestMADRSAnswer answers for test: MADRS
 	TestMADRSAnswer(context.Context, serviceitems.TestMADRSAnswers) error
+
+	// Resolution
+
+	ResolutionsUpdate(context.Context, serviceitems.ResolutionsUpdate) (int, error)
+	ResolutionsList(context.Context) ([]*serviceitems.Resolution, error)
+
+	ResolutionsEntityList(context.Context) ([]*serviceitems.ResolutionEntity, error)
+	ResolutionsGet(context.Context, int) (*serviceitems.Resolution, error)
+
+	// Resolution files
+
+	ResolutionsGetFiles(context.Context, int) ([]*serviceitems.ResolutionFile, error)
+	ResolutionsFileAdd(context.Context, int, string) (int, error)
 }

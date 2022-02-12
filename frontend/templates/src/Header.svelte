@@ -36,6 +36,9 @@
             <NavItem>
                 <NavLink href="tests.html">Tests</NavLink>
             </NavItem>
+            <NavItem>
+                <NavLink href="resolutions.html">Resolutions</NavLink>
+            </NavItem>
         </Nav>
     </Collapse>
 </Navbar>

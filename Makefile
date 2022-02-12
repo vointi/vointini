@@ -19,6 +19,7 @@ dbbackup:
 
 updatelocales:
 	@echo "Updating locales.."
+	cd backend/restapi; gotext extract .
 	cd backend/serviceapi; gotext extract .
 	go run ./cmd/build
 

@@ -47,6 +47,12 @@ func main() {
 	converter.Add(restapi.DTOHeight{})
 	converter.Add(restapi.DTOHeightAdd{})
 
+	// Resolutions
+	converter.Add(restapi.DTOResolutions{})
+	converter.Add(restapi.DTOResolutionsUpdate{})
+	converter.Add(restapi.DTOResolutionEntity{})
+	//converter.Add(restapi.DTOResolution)
+
 	// Tests
 
 	// MADRS
@@ -54,9 +60,10 @@ func main() {
 
 	err := converter.ConvertToFile(path.Join(`frontend`, `templates`, `src`, `dto.ts`))
 	if err != nil {
-		_, _ = fmt.Fprint(os.Stderr, `error: %v`, err)
+		_, _ = fmt.Fprintf(os.Stderr, `error: %v`, err)
 		os.Exit(1)
 	}
 
+	updateTranslationsInDir(path.Join(`backend`, `restapi`, `locales`))
 	updateTranslationsInDir(path.Join(`backend`, `serviceapi`, `locales`))
 }

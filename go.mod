@@ -7,6 +7,7 @@ require (
 	github.com/georgysavva/scany v0.2.9
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/jackc/pgx/v4 v4.14.1
+	github.com/spf13/afero v1.8.1
 	github.com/tkrajina/typescriptify-golang-structs v0.1.7
 	golang.org/x/text v0.3.7
 )
@@ -26,7 +27,7 @@ require (
 	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/tkrajina/go-reflector v0.5.5 // indirect
-	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97 // indirect
+	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa // indirect
 	golang.org/x/mod v0.5.1 // indirect
 	golang.org/x/sys v0.0.0-20220111092808-5a964db01320 // indirect
 	golang.org/x/tools v0.1.8 // indirect

@@ -2,6 +2,7 @@ package serviceapi
 
 import (
 	"context"
+	"github.com/vointini/vointini/backend/filestorage"
 	"github.com/vointini/vointini/backend/serviceapi/locales"
 	"github.com/vointini/vointini/backend/storage/storageimpl"
 	"golang.org/x/text/language"
@@ -13,16 +14,18 @@ import (
 
 // Service interacts with backend storage to save and fetch data transparently
 type Service struct {
-	storage storageimpl.Storage // Backend storage for permanent data
-	tr      *message.Printer    // Translations
-	log     *log.Logger
+	storage     storageimpl.Storage // Backend storage for permanent data
+	tr          *message.Printer    // Translations
+	log         *log.Logger
+	fileStorage *filestorage.FileStorage
 }
 
 // New returns *Service which uses given backend storage
 // Note: Service handles all possible caching
-func New(storage storageimpl.Storage, defaultLanguage language.Tag, logStream io.Writer) (svc *Service) {
+func New(storage storageimpl.Storage, fStorage *filestorage.FileStorage, defaultLanguage language.Tag, logStream io.Writer) (svc *Service) {
 	svc = &Service{
-		storage: storage,
+		storage:     storage,
+		fileStorage: fStorage,
 		tr: message.NewPrinter(defaultLanguage,
 			message.Catalog(locales.Translations),
 		),

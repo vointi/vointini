@@ -18,7 +18,8 @@ type StoragePostgreSQL struct {
 	db    *pgxpool.Pool
 }
 
-func New(user, password, database, host string, port uint16) (s *StoragePostgreSQL) {
+// New returns PostgreSQL backend storage implementation
+func New(user, password, database, host string, port uint16) (s *StoragePostgreSQL, err error) {
 	if port == 0 {
 		port = 5432
 	}
@@ -30,7 +31,7 @@ func New(user, password, database, host string, port uint16) (s *StoragePostgreS
 	))
 
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	go func(database *pgxpool.Pool) {
@@ -71,7 +72,7 @@ func New(user, password, database, host string, port uint16) (s *StoragePostgreS
 		version, appName, encoding, timezone,
 	)
 
-	return s
+	return s, nil
 }
 
 func (s *StoragePostgreSQL) getVal(v string) (value string, err error) {

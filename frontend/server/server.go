@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/go-chi/chi/v5"
 	"github.com/vointini/vointini/frontend/templates"
+	"golang.org/x/text/language"
 	"html/template"
 	"io"
 	"net/http"
@@ -15,8 +16,8 @@ import (
 //go:embed templates/index.html
 var mainTemplate embed.FS
 
-func New() (router *chi.Mux) {
-	endpoint := newApi()
+func New(defaultLanguage language.Tag) (router *chi.Mux) {
+	endpoint := newApi(defaultLanguage)
 
 	router = chi.NewRouter()
 	router.Get(`/`, endpoint.index) // default redirect
@@ -37,11 +38,14 @@ func New() (router *chi.Mux) {
 }
 
 type FrontEndServer struct {
-	basepath string
+	basepath        string
+	defaultLanguage language.Tag
 }
 
-func newApi() (fe *FrontEndServer) {
-	fe = &FrontEndServer{}
+func newApi(defaultLanguage language.Tag) (fe *FrontEndServer) {
+	fe = &FrontEndServer{
+		defaultLanguage: defaultLanguage,
+	}
 
 	cwd, err := os.Getwd()
 
@@ -56,7 +60,7 @@ func newApi() (fe *FrontEndServer) {
 
 // index redirects to default language and main page
 func (api FrontEndServer) index(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set(`Location`, `/fi/entries.html`)
+	w.Header().Set(`Location`, `/`+api.defaultLanguage.String()+`/entries.html`)
 	w.WriteHeader(http.StatusTemporaryRedirect)
 }
 

@@ -1,17 +1,23 @@
 {
-	"language": "fi-FI",
+	"language": "en-US",
 	"messages": [
+		{
+			"id": "date.invalid",
+			"message": "date.invalid",
+			"translation": "Invalid date",
+			"translatorComment": "Copied from source."
+		},
 		{
 			"id": "str.empty",
 			"message": "str.empty",
-			"translation": "kenttä ei voi olla tyhjä",
-			"translatorComment": ""
+			"translation": "str.empty",
+			"translatorComment": "Copied from source."
 		},
 		{
 			"id": "datetime.non-UTC",
 			"message": "datetime.non-UTC",
-			"translation": "päivämäärä ei ole UTC-muodossa",
-			"translatorComment": ""
+			"translation": "datetime.non-UTC",
+			"translatorComment": "Copied from source."
 		},
 		{
 			"id": "time.in_future",
@@ -22,32 +28,32 @@
 		{
 			"id": "tags.required",
 			"message": "tags.required",
-			"translation": "yksi tagi vaaditaan",
-			"translatorComment": ""
+			"translation": "tags.required",
+			"translatorComment": "Copied from source."
 		},
 		{
 			"id": "err.asciionly",
 			"message": "err.asciionly",
-			"translation": "vain ASCII-merkkejä",
+			"translation": "err.asciionly",
 			"translatorComment": "Copied from source."
 		},
 		{
 			"id": "depression",
 			"message": "depression",
 			"translation": "depression",
-			"translatorComment": "Copied from source."
+			"translatorComment": ""
 		},
 		{
 			"id": "anxiety",
 			"message": "anxiety",
 			"translation": "anxiety",
-			"translatorComment": "Copied from source."
+			"translatorComment": ""
 		},
 		{
 			"id": "stress",
 			"message": "stress",
 			"translation": "stress",
-			"translatorComment": "Copied from source."
+			"translatorComment": ""
 		}
 	]
 }

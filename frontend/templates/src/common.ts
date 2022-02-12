@@ -53,15 +53,37 @@ export function genHours(d: Date): Array<Date> {
 }
 
 
-export function handlePageSubmit(endpointUrl: string, method: string, values: object, successFunc: Function = function (o: object) {
-}) {
+export const handlePageSubmit = (
+    endpointUrl: string,
+    method: string,
+    values: object,
+    successFunc: Function = function (o: object) {
+    }
+) => {
+    let contentType:string = 'application/json'
+    let data: any = {}
+
+    if (values instanceof FormData) {
+        // File upload
+        contentType = null
+        data = values
+    } else {
+        // Convert to JSON
+        data = JSON.stringify(values)
+    }
+
+    let hdrs = {
+        'Accept': 'application/json'
+    }
+
+    if (contentType !== null) {
+        hdrs['Content-Type'] = contentType
+    }
+
     fetch(endpointUrl, {
         method: method,
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(values)
+        headers: hdrs,
+        body: data
     }).then((res) => {
         // Handle internal server error
         if (res.status === 500) {
