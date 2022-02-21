@@ -115,3 +115,12 @@ func (fs FileStorage) AddResolutionFile(ctx context.Context, id int, extension s
 
 	return fname, nil
 }
+
+func (fs FileStorage) GetResolutionFile(ctx context.Context, resolutionId int, fileId string) (f io.ReadCloser, err error) {
+	f, err = fs.vfs.Open(fmt.Sprintf(`/resolutions/%d/%s`, resolutionId, fileId))
+	if err != nil {
+		return nil, err
+	}
+
+	return f, nil
+}

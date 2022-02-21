@@ -33,4 +33,5 @@ type ResolutionFile struct {
 	ResolutionId int
 	AddedAt      time.Time
 	Filename     string
+	ContentType  string
 }

@@ -59,5 +59,6 @@ type Storage interface {
 	// Resolution files
 
 	ResolutionsGetFiles(context.Context, int) ([]*serviceitems.ResolutionFile, error)
-	ResolutionsFileAdd(context.Context, int, string) (int, error)
+	ResolutionsFileAdd(context.Context, int, string, string) (int, error)
+	ResolutionsGetFile(context.Context, int) (*serviceitems.ResolutionFile, error)
 }

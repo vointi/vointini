@@ -172,6 +172,7 @@ type resolutionFile struct {
 	ResolutionId int       `db:"resolutionid"`
 	AddedAt      time.Time `db:"added_at"`
 	Filename     string    `db:"filename"`
+	ContentType  string    `db:"ctype"`
 }
 
 func (s resolutionFile) ConvertToAPI() *serviceitems.ResolutionFile {
@@ -180,6 +181,7 @@ func (s resolutionFile) ConvertToAPI() *serviceitems.ResolutionFile {
 		ResolutionId: s.ResolutionId,
 		AddedAt:      s.AddedAt,
 		Filename:     s.Filename,
+		ContentType:  s.ContentType,
 	}
 }
 

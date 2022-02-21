@@ -2,8 +2,11 @@ package serviceapi
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 	"io"
+	"os"
 	"path"
 	"strings"
 	"time"
@@ -75,8 +78,21 @@ func (r Service) ResolutionsGetFiles(ctx context.Context, resolutionId int) ([]*
 }
 
 // ResolutionsUploadFile uploads a new file into the filesystem and metadata to storage database
-func (r Service) ResolutionsUploadFile(ctx context.Context, src io.ReadCloser, resolutionId int, filename string) (newname string, newid int, err error) {
-	fileExtension := `dat` // unknown
+func (r Service) ResolutionsUploadFile(ctx context.Context, src io.ReadCloser, resolutionId int, filename string, contentType string) (newname string, newid int, err error) {
+	contentType = strings.ToLower(contentType)
+	contentType = strings.TrimSpace(contentType)
+
+	filename = strings.TrimSpace(filename)
+
+	if filename == `` {
+		return ``, -1, fmt.Errorf(r.tr.Sprintf(`empty.filename`))
+	}
+
+	if contentType == `` {
+		return ``, -1, fmt.Errorf(r.tr.Sprintf(`empty.content-type`))
+	}
+
+	fileExtension := `dat` // unknown file extension
 
 	if strings.ContainsRune(filename, '.') {
 		fileExtension = strings.TrimLeft(path.Ext(filename), `.`)
@@ -89,10 +105,31 @@ func (r Service) ResolutionsUploadFile(ctx context.Context, src io.ReadCloser, r
 	}
 
 	// Add metadata to database
-	newid, err = r.storage.ResolutionsFileAdd(ctx, resolutionId, newname)
+	newid, err = r.storage.ResolutionsFileAdd(ctx, resolutionId, newname, contentType)
 	if err != nil {
 		return newname, newid, err
 	}
 
 	return newname, newid, nil
+}
+
+// ResolutionsGetFile opens a given file from the filesystem
+func (r Service) ResolutionsGetFile(ctx context.Context, id int) (src io.ReadCloser, mime string, err error) {
+	// Check database that the file reference exists
+	file, err := r.storage.ResolutionsGetFile(ctx, id)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return nil, mime, err
+		} else {
+			return nil, mime, fmt.Errorf(`db err: %w`, err)
+		}
+	}
+
+	// Open file in filesystem
+	src, err = r.fileStorage.GetResolutionFile(ctx, file.ResolutionId, file.Filename)
+	if err != nil {
+		return nil, mime, fmt.Errorf(`could not open file %d for resolution %d`, id, file.ResolutionId)
+	}
+
+	return src, file.ContentType, nil
 }

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"os"
 )
 
 func (s StoragePostgreSQL) resolutionsAdd(ctx context.Context, add serviceitems.ResolutionsUpdate) (retid int, internalError error) {
@@ -182,18 +183,19 @@ WHERE
 	return items, nil
 }
 
-func (s StoragePostgreSQL) ResolutionsFileAdd(ctx context.Context, resolutionid int, filename string) (retid int, internalError error) {
+func (s StoragePostgreSQL) ResolutionsFileAdd(ctx context.Context, resolutionid int, filename string, contentType string) (retid int, internalError error) {
 	internalError = pgxscan.Get(ctx, s.db, &retid,
 		`INSERT INTO 
 resolution_files
-  (resolutionid, filename) VALUES
-  ($1,           $2      )
+  (resolutionid, filename, ctype) VALUES
+  ($1,           $2,       $3   )
 ON CONFLICT (filename) DO UPDATE SET
   resolutionid = $1
   ,filename = $2
+  ,ctype = $3
 RETURNING id
 `,
-		resolutionid, filename,
+		resolutionid, filename, contentType,
 	)
 
 	if internalError != nil {
@@ -201,4 +203,34 @@ RETURNING id
 	}
 
 	return retid, nil
+}
+
+func (s StoragePostgreSQL) ResolutionsGetFile(ctx context.Context, id int) (item *serviceitems.ResolutionFile, internalError error) {
+	var sitems []*resolutionFile
+
+	internalError = pgxscan.Select(ctx, s.db, &sitems,
+		`SELECT 
+  id
+  ,added_at
+  ,resolutionid
+  ,filename
+  ,ctype
+FROM 
+  resolution_files
+WHERE 
+  id = $1
+LIMIT 1
+`,
+		id,
+	)
+
+	if internalError != nil {
+		return nil, fmt.Errorf(`pg: ResolutionsGetFile: %w`, internalError)
+	}
+
+	if sitems == nil || len(sitems) != 1 {
+		return nil, os.ErrNotExist
+	}
+
+	return sitems[0].ConvertToAPI(), nil
 }

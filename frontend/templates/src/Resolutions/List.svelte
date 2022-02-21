@@ -1,11 +1,10 @@
 <script lang="ts">
     import {Button, Modal, ModalHeader, Table} from "sveltestrap";
-    import {createEventDispatcher, onMount} from "svelte";
-    import {isNumber, Level} from "../common";
+    import {onMount} from "svelte";
+    import {isNumber} from "../common";
     import type {DTOResolutionEntity, DTOResolutions} from "../dto";
     import {default as Update} from "./Update.svelte"
     import UploadForm from "./UploadForm.svelte";
-    import {DTOEntryLevel} from "../dto";
 
     let selectedId: number = -1
     let items: Array<DTOResolutions> = []
@@ -44,20 +43,6 @@
         })
 
         entities = entities
-
-        // Get resolution files
-        //@See backend/restapi/router.go
-        const flist = await fetch(
-            "/api/v1/resolution-entities"
-        )
-
-        const fdata: Array<DTOResolutionEntity> = await flist.json()
-        fdata.forEach((i) => {
-            entities[i.id] = i.name
-        })
-
-        entities = entities
-
 
         //@See backend/restapi/router.go
         const res = await fetch(

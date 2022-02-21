@@ -22,10 +22,10 @@
 
     const {form} = createForm({
         onSubmit: async (values, event) => {
-            //event.preventDefault()
             const method = event.form.method.toUpperCase()
             const endpointUrl = event.form.action
 
+            // Construct upload
             let fd = new FormData()
 
             Object.keys(values).forEach((k) => {

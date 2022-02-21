@@ -56,6 +56,7 @@ func New(service *serviceapi.Service, defaultLanguage language.Tag) (router *chi
 	router.Get(`/resolution-files`, endpoint.resolutionFileList)        // List files
 	router.Get(`/resolution-files/{id}`, endpoint.resolutionFileList)   // List files of a given resolution
 	router.Post(`/resolution-file/{id}`, endpoint.resolutionFileUpload) // Upload a file to a given resolution
+	router.Get(`/resolution-file/{id}`, endpoint.resolutionFileGet)     // Get file binary
 
 	// Weight
 	router.Get(`/weight`, endpoint.weightList)    // List

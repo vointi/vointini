@@ -3,11 +3,14 @@ package restapi
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/vointini/vointini/backend/serviceapi"
 	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
 	"io"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -297,8 +300,16 @@ func (restapi restAPI) resolutionFileUpload(w http.ResponseWriter, r *http.Reque
 				return
 			}
 
+			mimetype := strings.ToLower(fh.Header.Get(`Content-Type`))
+
+			// TODO better way to add missing charset?
+			switch mimetype {
+			case `text/plain`:
+				mimetype += `; charset=utf-8`
+			}
+
 			// Send stream to be uploaded
-			upfname, _, err := restapi.api.ResolutionsUploadFile(context.TODO(), f, id, fh.Filename)
+			upfname, _, err := restapi.api.ResolutionsUploadFile(context.TODO(), f, id, fh.Filename, mimetype)
 			if err != nil {
 				panic(err)
 				return
@@ -339,4 +350,33 @@ func (restapi restAPI) resolutionFileList(w http.ResponseWriter, r *http.Request
 		return
 	}
 
+}
+
+// resolutionFileGet sends file binary
+func (restapi restAPI) resolutionFileGet(w http.ResponseWriter, r *http.Request) {
+	id, err := getIntParam(r, `id`) // File id
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		panic(err)
+		return
+	}
+
+	f, mimeType, err := restapi.api.ResolutionsGetFile(context.TODO(), id)
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			// No file with this ID
+			w.WriteHeader(http.StatusNotFound)
+			return
+		}
+
+		// Internal error
+		w.WriteHeader(http.StatusBadRequest)
+		panic(err)
+		return
+	}
+	defer f.Close()
+
+	w.Header().Set(`Content-Type`, mimeType)
+
+	_, _ = io.Copy(w, f)
 }
