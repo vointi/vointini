@@ -18,11 +18,18 @@ SET row_security = off;
 
 ALTER TABLE IF EXISTS ONLY public.tags_for_task DROP CONSTRAINT IF EXISTS tags_for_task_tasks_id_fk;
 ALTER TABLE IF EXISTS ONLY public.tags_for_task DROP CONSTRAINT IF EXISTS tags_for_task_entry_tags_id_fk;
+ALTER TABLE IF EXISTS ONLY public.resolutions DROP CONSTRAINT IF EXISTS resolutions_resolution_entity_id_fk;
+ALTER TABLE IF EXISTS ONLY public.resolution_files DROP CONSTRAINT IF EXISTS resolution_files_resolutions_id_fk;
 ALTER TABLE IF EXISTS ONLY public.entry_levels DROP CONSTRAINT IF EXISTS entry_levels_levels_id_fk;
 ALTER TABLE IF EXISTS ONLY public.entry_levels DROP CONSTRAINT IF EXISTS entry_levels_entries_id_fk;
 ALTER TABLE IF EXISTS ONLY public.tasks DROP CONSTRAINT IF EXISTS completed_tasks_tasks_id_fk;
 DROP INDEX IF EXISTS public.test_madrs_id_uindex;
 DROP INDEX IF EXISTS public.spawn_tasks_title_uindex;
+DROP INDEX IF EXISTS public.resolutions_id_uindex;
+DROP INDEX IF EXISTS public.resolution_files_id_uindex;
+DROP INDEX IF EXISTS public.resolution_files_filename_uindex;
+DROP INDEX IF EXISTS public.resolution_entity_name_uindex;
+DROP INDEX IF EXISTS public.resolution_entity_id_uindex;
 DROP INDEX IF EXISTS public.levels_shortname_uindex;
 DROP INDEX IF EXISTS public.levels_name_uindex;
 DROP INDEX IF EXISTS public.entry_tags_shortname_uindex;
@@ -33,6 +40,9 @@ ALTER TABLE IF EXISTS ONLY public.test_madrs DROP CONSTRAINT IF EXISTS test_madr
 ALTER TABLE IF EXISTS ONLY public.spawn_tasks DROP CONSTRAINT IF EXISTS tasks_pk;
 ALTER TABLE IF EXISTS ONLY public.tags_for_task DROP CONSTRAINT IF EXISTS tags_for_task_pk;
 ALTER TABLE IF EXISTS ONLY public.tags_for_entry DROP CONSTRAINT IF EXISTS tags_for_entry_pk;
+ALTER TABLE IF EXISTS ONLY public.resolutions DROP CONSTRAINT IF EXISTS resolutions_pk;
+ALTER TABLE IF EXISTS ONLY public.resolution_files DROP CONSTRAINT IF EXISTS resolution_files_pk;
+ALTER TABLE IF EXISTS ONLY public.resolution_entity DROP CONSTRAINT IF EXISTS resolution_entity_pk;
 ALTER TABLE IF EXISTS ONLY public.levels DROP CONSTRAINT IF EXISTS levels_pk;
 ALTER TABLE IF EXISTS ONLY public.height DROP CONSTRAINT IF EXISTS height_pk;
 ALTER TABLE IF EXISTS ONLY public.entry_tags DROP CONSTRAINT IF EXISTS entry_tags_pk;
@@ -43,6 +53,9 @@ ALTER TABLE IF EXISTS public.weight ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.test_madrs ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.tasks ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.spawn_tasks ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.resolutions ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.resolution_files ALTER COLUMN id DROP DEFAULT;
+ALTER TABLE IF EXISTS public.resolution_entity ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.levels ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.height ALTER COLUMN id DROP DEFAULT;
 ALTER TABLE IF EXISTS public.entry_tags ALTER COLUMN id DROP DEFAULT;
@@ -56,6 +69,12 @@ DROP SEQUENCE IF EXISTS public.tasks_id_seq;
 DROP TABLE IF EXISTS public.tags_for_task;
 DROP TABLE IF EXISTS public.tags_for_entry;
 DROP TABLE IF EXISTS public.spawn_tasks;
+DROP SEQUENCE IF EXISTS public.resolutions_id_seq;
+DROP TABLE IF EXISTS public.resolutions;
+DROP SEQUENCE IF EXISTS public.resolution_files_id_seq;
+DROP TABLE IF EXISTS public.resolution_files;
+DROP SEQUENCE IF EXISTS public.resolution_entity_id_seq;
+DROP TABLE IF EXISTS public.resolution_entity;
 DROP SEQUENCE IF EXISTS public.levels_id_seq;
 DROP TABLE IF EXISTS public.levels;
 DROP SEQUENCE IF EXISTS public.height_id_seq;
@@ -265,6 +284,106 @@ ALTER SEQUENCE public.levels_id_seq OWNED BY public.levels.id;
 
 
 --
+-- Name: resolution_entity; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.resolution_entity (
+    id integer NOT NULL,
+    name text DEFAULT ''::text NOT NULL,
+    added_at timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: resolution_entity_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.resolution_entity_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resolution_entity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.resolution_entity_id_seq OWNED BY public.resolution_entity.id;
+
+
+--
+-- Name: resolution_files; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.resolution_files (
+    id integer NOT NULL,
+    resolutionid integer NOT NULL,
+    filename text DEFAULT ''::text NOT NULL,
+    added_at timestamp without time zone DEFAULT now() NOT NULL,
+    ctype text DEFAULT ''::text NOT NULL
+);
+
+
+--
+-- Name: resolution_files_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.resolution_files_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resolution_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.resolution_files_id_seq OWNED BY public.resolution_files.id;
+
+
+--
+-- Name: resolutions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.resolutions (
+    id integer NOT NULL,
+    added_at timestamp without time zone DEFAULT now() NOT NULL,
+    decisiondate date,
+    sentdate date,
+    startdate date NOT NULL,
+    enddate date,
+    entityid integer NOT NULL,
+    name text DEFAULT ''::text NOT NULL
+);
+
+
+--
+-- Name: resolutions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.resolutions_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resolutions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.resolutions_id_seq OWNED BY public.resolutions.id;
+
+
+--
 -- Name: spawn_tasks; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -432,6 +551,27 @@ ALTER TABLE ONLY public.levels ALTER COLUMN id SET DEFAULT nextval('public.level
 
 
 --
+-- Name: resolution_entity id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolution_entity ALTER COLUMN id SET DEFAULT nextval('public.resolution_entity_id_seq'::regclass);
+
+
+--
+-- Name: resolution_files id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolution_files ALTER COLUMN id SET DEFAULT nextval('public.resolution_files_id_seq'::regclass);
+
+
+--
+-- Name: resolutions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolutions ALTER COLUMN id SET DEFAULT nextval('public.resolutions_id_seq'::regclass);
+
+
+--
 -- Name: spawn_tasks id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -505,6 +645,30 @@ ALTER TABLE ONLY public.height
 
 ALTER TABLE ONLY public.levels
     ADD CONSTRAINT levels_pk PRIMARY KEY (id);
+
+
+--
+-- Name: resolution_entity resolution_entity_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolution_entity
+    ADD CONSTRAINT resolution_entity_pk PRIMARY KEY (id);
+
+
+--
+-- Name: resolution_files resolution_files_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolution_files
+    ADD CONSTRAINT resolution_files_pk PRIMARY KEY (id);
+
+
+--
+-- Name: resolutions resolutions_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolutions
+    ADD CONSTRAINT resolutions_pk PRIMARY KEY (id);
 
 
 --
@@ -583,6 +747,41 @@ CREATE UNIQUE INDEX levels_shortname_uindex ON public.levels USING btree (shortn
 
 
 --
+-- Name: resolution_entity_id_uindex; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX resolution_entity_id_uindex ON public.resolution_entity USING btree (id);
+
+
+--
+-- Name: resolution_entity_name_uindex; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX resolution_entity_name_uindex ON public.resolution_entity USING btree (name);
+
+
+--
+-- Name: resolution_files_filename_uindex; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX resolution_files_filename_uindex ON public.resolution_files USING btree (filename);
+
+
+--
+-- Name: resolution_files_id_uindex; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX resolution_files_id_uindex ON public.resolution_files USING btree (id);
+
+
+--
+-- Name: resolutions_id_uindex; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX resolutions_id_uindex ON public.resolutions USING btree (id);
+
+
+--
 -- Name: spawn_tasks_title_uindex; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -618,6 +817,22 @@ ALTER TABLE ONLY public.entry_levels
 
 ALTER TABLE ONLY public.entry_levels
     ADD CONSTRAINT entry_levels_levels_id_fk FOREIGN KEY (levelid) REFERENCES public.levels(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: resolution_files resolution_files_resolutions_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolution_files
+    ADD CONSTRAINT resolution_files_resolutions_id_fk FOREIGN KEY (resolutionid) REFERENCES public.resolutions(id);
+
+
+--
+-- Name: resolutions resolutions_resolution_entity_id_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.resolutions
+    ADD CONSTRAINT resolutions_resolution_entity_id_fk FOREIGN KEY (entityid) REFERENCES public.resolution_entity(id);
 
 
 --
