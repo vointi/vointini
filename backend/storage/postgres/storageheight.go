@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/georgysavva/scany/pgxscan"
-	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
 )
 
 func (s StoragePostgreSQL) HeightUpdate(ctx context.Context, add serviceitems.HeightAdd) (internalError error) {

@@ -2,9 +2,9 @@ package serviceapi
 
 import (
 	"context"
-	"github.com/vointini/vointini/backend/filestorage"
-	"github.com/vointini/vointini/backend/serviceapi/locales"
-	"github.com/vointini/vointini/backend/storage/storageimpl"
+	"github.com/vointi/vointini/backend/filestorage"
+	"github.com/vointi/vointini/backend/serviceapi/locales"
+	"github.com/vointi/vointini/backend/storage/storageimpl"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	"io"

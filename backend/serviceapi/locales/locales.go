@@ -3,7 +3,7 @@ package locales
 import (
 	"embed"
 	"fmt"
-	"github.com/vointini/vointini/pkg/locales"
+	"github.com/vointi/vointini/pkg/locales"
 	"golang.org/x/text/message/catalog"
 )
 

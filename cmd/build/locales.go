@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/vointini/vointini/pkg/locales"
+	"github.com/vointi/vointini/pkg/locales"
 	"io"
 	"io/ioutil"
 	"log"

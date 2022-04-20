@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/alexandrevicenzi/go-sse"
 	"github.com/go-chi/chi/v5"
-	"github.com/vointini/vointini/pkg/timer"
+	"github.com/vointi/vointini/pkg/timer"
 	"io"
 	"net/http"
 	"strconv"

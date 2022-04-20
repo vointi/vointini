@@ -3,7 +3,7 @@ package postgres
 // Internal types to be converted to API versions
 
 import (
-	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
 	"time"
 )
 

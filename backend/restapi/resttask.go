@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
-	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
 	"io"
 	"net/http"
 	"strconv"

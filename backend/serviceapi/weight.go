@@ -2,7 +2,7 @@ package serviceapi
 
 import (
 	"context"
-	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
 )
 
 func (r Service) WeightUpdate(ctx context.Context, w serviceitems.WeightAdd) (userError []UserError, internalError error) {

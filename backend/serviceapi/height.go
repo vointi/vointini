@@ -2,7 +2,7 @@ package serviceapi
 
 import (
 	"context"
-	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
 )
 
 func (r Service) HeightUpdate(ctx context.Context, add serviceitems.HeightAdd) (userError []UserError, internalError error) {

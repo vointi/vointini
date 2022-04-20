@@ -2,7 +2,7 @@ package serviceapi
 
 import (
 	"context"
-	"github.com/vointini/vointini/backend/serviceapi/serviceitems"
+	"github.com/vointi/vointini/backend/serviceapi/serviceitems"
 )
 
 func (r Service) TaskUpdate(ctx context.Context, task serviceitems.TaskUpdate) (id int, userErrors []UserError, internalError error) {
