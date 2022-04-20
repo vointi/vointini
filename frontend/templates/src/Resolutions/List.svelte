@@ -95,6 +95,11 @@
             <td on:click={() => toggle(item.id)}>{item.name}</td>
             <!-- File upload -->
             <td class="uploadfile">
+                <ul>
+                    {#each item.files as file}
+                        <li><a href="/api/v1/resolution-file/{file.id}">{file.name}</a> ({file.added_at})</li>
+                    {/each}
+                </ul>
                 <div class="uploadfile">
                     <UploadForm resolutionid={item.id}/>
                 </div>

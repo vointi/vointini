@@ -84,14 +84,21 @@ export interface DTOHeight {
 export interface DTOHeightAdd {
     height: number;
 }
+export interface DTOResolutionFile {
+    id: number;
+    added_at: string;
+    name: string;
+}
 export interface DTOResolutions {
     id: number;
     entityid: number;
+    added_at: string;
     name: string;
     decisiondate: string;
     sentdate: string;
     startdate: string;
     enddate: string;
+    files: DTOResolutionFile[];
 }
 export interface DTOResolutionsUpdate {
     entityid: number;
@@ -105,6 +112,7 @@ export interface DTOResolutionEntity {
     id: number;
     name: string;
 }
+
 export interface DTOTestMADRSAnswers {
     a1: number;
     a2: number;

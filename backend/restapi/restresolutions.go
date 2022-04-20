@@ -10,11 +10,23 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path"
 	"strings"
 	"time"
 )
 
 func (restapi restAPI) resolutionsList(w http.ResponseWriter, r *http.Request) {
+	entlist, err := restapi.api.ResolutionsEntityList(context.TODO())
+	if err != nil {
+		panic(err)
+		return
+	}
+
+	entities := make(map[int]string)
+	for _, e := range entlist {
+		entities[e.Id] = e.Name
+	}
+
 	l, internalError := restapi.api.ResolutionsList(context.TODO())
 	if internalError != nil {
 		panic(internalError)
@@ -52,6 +64,27 @@ func (restapi restAPI) resolutionsList(w http.ResponseWriter, r *http.Request) {
 			add.EndDate = i.EndDate.Format(dateFmt)
 		}
 
+		// Get file(s) associated with resolution
+		files, err := restapi.api.ResolutionsGetFiles(context.TODO(), i.Id)
+
+		if err != nil {
+			panic(err)
+			return
+		}
+
+		for _, f := range files {
+			fext := path.Ext(f.Filename)
+
+			add.Files = append(add.Files, DTOResolutionFile{
+				Id:      f.Id,
+				AddedAt: f.AddedAt.Format(dateFmt),
+				Name: fmt.Sprintf(
+					`%s %s #%d%s`,
+					i.StartDate.Format(dateFmt), entities[i.EntityId], f.Id, fext),
+			})
+		}
+
+		// Append item
 		ditems = append(ditems, add)
 	}
 

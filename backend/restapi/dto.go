@@ -124,18 +124,24 @@ type DTOResolutionsUpdate struct {
 }
 
 type DTOResolutions struct {
-	Id           int      `json:"id"`
-	EntityId     int      `json:"entityid"`
-	AddedAt      string   `json:"added_at"`
-	Name         string   `json:"name"`
-	DecisionDate string   `json:"decisiondate"`
-	SentDate     string   `json:"sentdate"`
-	StartDate    string   `json:"startdate"`
-	EndDate      string   `json:"enddate"`
-	Files        []string `json:"files"`
+	Id           int                 `json:"id"`
+	EntityId     int                 `json:"entityid"`
+	AddedAt      string              `json:"added_at"`
+	Name         string              `json:"name"`
+	DecisionDate string              `json:"decisiondate"`
+	SentDate     string              `json:"sentdate"`
+	StartDate    string              `json:"startdate"`
+	EndDate      string              `json:"enddate"`
+	Files        []DTOResolutionFile `json:"files"`
 }
 
 type DTOResolutionEntity struct {
 	Id   int    `json:"id"`
 	Name string `json:"name"`
+}
+
+type DTOResolutionFile struct {
+	Id      int    `json:"id"`
+	AddedAt string `json:"added_at"`
+	Name    string `json:"name"`
 }

@@ -51,7 +51,7 @@ func main() {
 	converter.Add(restapi.DTOResolutions{})
 	converter.Add(restapi.DTOResolutionsUpdate{})
 	converter.Add(restapi.DTOResolutionEntity{})
-	//converter.Add(restapi.DTOResolution)
+	converter.Add(restapi.DTOResolutionFile{})
 
 	// Tests
 
